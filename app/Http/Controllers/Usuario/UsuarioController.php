@@ -20,7 +20,7 @@ class UsuarioController extends Controller
         $request->validate([
             'nome' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:usuarios',
-            'password' => 'required|string|min:8|confirmed',
+            'senha' => 'required|string|min:8|confirmed',
             'empresa_id' => 'required|exists:empresas,id',
         ]);
 
@@ -31,7 +31,8 @@ class UsuarioController extends Controller
             'empresa_id' => $request->empresa_id,
         ]);
 
-        Auth::login($usuario);
+
+        Auth::guard('usuario')->login($usuario);
 
         return redirect()->route('usuario.dashboard');
     }
