@@ -17,8 +17,9 @@ class Empresa extends Authenticatable
         'password', 'remember_token',
     ];
 
-//    public function getAuthPassword()
-//    {
-//        return $this->senha;
-//    }
+// Relacionamento com os usuários
+    public function usuarios()
+    {
+        return $this->hasMany(Usuario::class, 'empresa_id');
+    }
 }

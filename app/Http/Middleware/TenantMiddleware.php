@@ -10,7 +10,8 @@ class TenantMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        $user = Auth::user();
+        //$user = Auth::user();
+        $user = Auth::guard('usuario')->user();
 
         if ($user && $user->empresa_id) {
             config(['tenant_id' => $user->empresa_id]);

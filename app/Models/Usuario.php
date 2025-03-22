@@ -17,8 +17,9 @@ class Usuario extends Authenticatable
         'password', 'remember_token',
     ];
 
-//    public function getAuthPassword()
-//    {
-//        return $this->senha;
-//    }
+    // Relacionamento com a empresa
+    public function empresa()
+    {
+        return $this->belongsTo(Empresa::class, 'empresa_id');
+    }
 }

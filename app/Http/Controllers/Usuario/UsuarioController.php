@@ -60,7 +60,15 @@ class UsuarioController extends Controller
 
     public function dashboard()
     {
-        return view('usuario.dashboard');
+        //return view('usuario.dashboard');
+        // Recupera o usuário autenticado
+        $usuario = Auth::guard('usuario')->user();
+
+        // Recupera os dados da empresa do usuário
+        $empresa = $usuario->empresa;
+
+        // Passa os dados para a view
+        return view('usuario.dashboard', compact('empresa'));
     }
 
     public function logout()
