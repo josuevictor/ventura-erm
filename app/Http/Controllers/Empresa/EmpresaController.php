@@ -21,7 +21,7 @@ class EmpresaController extends Controller
             'nome' => 'required|string|max:255',
             'cnpj' => 'required|string|max:14|unique:empresas',
             'email' => 'required|string|email|max:255|unique:empresas',
-            'senha' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8|confirmed',
         ]);
 
         $empresa = Empresa::create([
