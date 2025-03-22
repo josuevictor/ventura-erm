@@ -26,7 +26,6 @@ Route::post('/usuario/registrar', [UsuarioController::class, 'register']);
 Route::get('/usuario/login', [UsuarioController::class, 'showLoginForm'])->name('usuario.login');
 Route::post('/usuario/login', [UsuarioController::class, 'login']);
 Route::post('/usuario/logout', [UsuarioController::class, 'logout'])->name('usuario.logout');
-//Route::get('/usuario/dashboard', [UsuarioController::class, 'dashboard'])->name('usuario.dashboard');
 
 
 // Rotas protegidas para Usuários

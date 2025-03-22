@@ -28,7 +28,7 @@ class EmpresaController extends Controller
             'nome' => $request->nome,
             'cnpj' => $request->cnpj,
             'email' => $request->email,
-            'senha' => Hash::make($request->senha),
+            'password' => Hash::make($request->senha),
         ]);
 
         Auth::guard('empresa')->login($empresa);
@@ -48,7 +48,7 @@ class EmpresaController extends Controller
             'senha' => 'required|string',
         ]);
 
-        if (Auth::guard('empresa')->attempt(['email' => $request->email, 'senha' => $request->senha])) {
+        if (Auth::guard('empresa')->attempt(['email' => $request->email, 'password' => $request->senha])) {
             //return view('empresa.dashboard');
             return redirect()->route('empresa.dashboard');
         }
@@ -64,6 +64,6 @@ class EmpresaController extends Controller
     public function logout()
     {
         Auth::guard('empresa')->logout();
-        return redirect('/');
+        return redirect('/empresa/login');
     }
 }

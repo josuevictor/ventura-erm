@@ -10,15 +10,15 @@ class Empresa extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
-        'nome', 'cnpj', 'email', 'senha',
+        'nome', 'cnpj', 'email', 'password',
     ];
 
     protected $hidden = [
         'senha', 'remember_token',
     ];
 
-    public function getAuthPassword()
-    {
-        return $this->senha;
-    }
+//    public function getAuthPassword()
+//    {
+//        return $this->senha;
+//    }
 }

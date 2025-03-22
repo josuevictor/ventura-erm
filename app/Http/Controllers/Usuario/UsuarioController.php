@@ -27,7 +27,7 @@ class UsuarioController extends Controller
         $usuario = Usuario::create([
             'nome' => $request->nome,
             'email' => $request->email,
-            'senha' => Hash::make($request->senha),
+            'password' => Hash::make($request->senha),
             'empresa_id' => $request->empresa_id,
         ]);
 
@@ -48,7 +48,7 @@ class UsuarioController extends Controller
             'senha' => 'required|string',
         ]);
 
-        if (Auth::guard('usuario')->attempt(['email' => $request->email, 'senha' => $request->senha])) {
+        if (Auth::guard('usuario')->attempt(['email' => $request->email, 'password' => $request->senha])) {
             return redirect()->route('usuario.dashboard');
         }
 
@@ -65,6 +65,6 @@ class UsuarioController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect('/');
+        return redirect('/usuario/login');
     }
 }
