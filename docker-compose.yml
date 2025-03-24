@@ -1,8 +1,6 @@
-version: '3.8'
-
 services:
     postgres:
-        image: postgres:latest
+        image: postgres:15
         container_name: laravel_postgres
         environment:
             POSTGRES_DB: laravel_db
@@ -15,11 +13,8 @@ services:
         networks:
             - laravel_network
 
-    # Se você quiser adicionar o Laravel no mesmo compose (opcional)
     app:
-        build:
-            context: .
-            dockerfile: Dockerfile
+        build: .
         container_name: laravel_app
         volumes:
             - .:/var/www/html
@@ -29,10 +24,12 @@ services:
             - postgres
         networks:
             - laravel_network
-
-volumes:
-    postgres_data:
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
 
 networks:
     laravel_network:
         driver: bridge
+
+volumes:
+    postgres_data:

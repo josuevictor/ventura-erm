@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('empresa_id')->constrained('empresas')->onDelete('cascade'); // Vincula o usuário a uma empresa
             $table->string('nome');
             $table->string('email')->unique();
-            $table->string('senha');
+            $table->string('password');
             $table->timestamps();
         });
     }
