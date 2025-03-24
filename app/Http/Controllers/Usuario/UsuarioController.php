@@ -50,30 +50,38 @@ class UsuarioController extends Controller
         ]);
 
         if (Auth::guard('usuario')->attempt(['email' => $request->email, 'password' => $request->senha])) {
-            return redirect()->route('usuario.dashboard');
+            $request->session()->regenerate();
+            return redirect()->intended(route('usuario.dashboard'));
         }
 
-        return back()->withErrors(['email' => 'Credenciais inválidas']);
+        return back()->withErrors([
+            'email' => 'Credenciais inválidas',
+        ])->onlyInput('email');
     }
 
     // App\Http\Controllers\Usuario\UsuarioController.php
 
     public function dashboard()
     {
-        //return view('usuario.dashboard');
-        // Recupera o usuário autenticado
+        if (!Auth::guard('usuario')->check()) {
+            return redirect()->route('usuario.login')->with('error', 'Você precisa fazer login primeiro');
+        }
+
         $usuario = Auth::guard('usuario')->user();
 
-        // Recupera os dados da empresa do usuário
+        if (!$usuario->empresa) {
+
+            return redirect()->back()->with('error', 'Nenhuma empresa associada a este usuário');
+        }
+
         $empresa = $usuario->empresa;
 
-        // Passa os dados para a view
         return view('usuario.dashboard', compact('empresa'));
     }
 
     public function logout()
     {
-        Auth::logout();
+        Auth::guard('usuario')->logout();
         return redirect('/usuario/login');
     }
 }

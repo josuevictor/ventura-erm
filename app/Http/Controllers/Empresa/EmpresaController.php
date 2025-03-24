@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Empresa;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class EmpresaController extends Controller
 {
@@ -31,9 +32,17 @@ class EmpresaController extends Controller
             'password' => Hash::make($request->senha),
         ]);
 
+        $schemaName = 'empresa_' . $empresa->id; // Exemplo: empresa_1, empresa_2, etc.
+        $this->criarSchema($schemaName);
+
         Auth::guard('empresa')->login($empresa);
 
         return redirect()->route('empresa.dashboard');
+    }
+
+    private function criarSchema($schemaName)
+    {
+        DB::statement("CREATE SCHEMA $schemaName");
     }
 
     public function showLoginForm()

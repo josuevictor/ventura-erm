@@ -9,7 +9,8 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
-    && docker-php-ext-install pdo_mysql mbstring zip exif pcntl bcmath gd
+    libpq-dev \  # Adicionado para suporte ao PostgreSQL
+    && docker-php-ext-install pdo_mysql mbstring zip exif pcntl bcmath gd pdo pdo_pgsql  # Adicionado pdo_pgsql
 
 # Habilitar o módulo do Apache rewrite
 RUN a2enmod rewrite
